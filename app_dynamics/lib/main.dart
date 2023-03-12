@@ -45,13 +45,16 @@ class _MyHomePageState extends State<MyHomePage> {
             actions: [
               Column(
                 children: [
-                  IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.account_circle,
-                        size: 50,
-                      )),
-                  Text("Connexion")
+                  Container(
+                      child: IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.account_circle,
+                            size: 50,
+                          ))),
+                  Container(
+                    child: Text("Connexion"),
+                  )
                 ],
               )
             ],
