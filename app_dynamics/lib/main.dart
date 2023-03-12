@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         home: const MyHomePage(
-          title: 'Accueils',
+          title: 'Accueil',
         ));
   }
 }
@@ -37,27 +37,32 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(300),
+          preferredSize: const Size.fromHeight(120),
           child: AppBar(
             backgroundColor: const Color.fromARGB(255, 152, 158, 152),
-            leading: Image.asset("assets/images/Rectangle_logo.png"),
-            leadingWidth: 250,
-            actions: [
-              Column(
-                children: [
-                  Container(
-                      child: IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.account_circle,
-                            size: 50,
-                          ))),
-                  Container(
-                    child: Text("Connexion"),
-                  )
-                ],
-              )
-            ],
+            flexibleSpace: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                    padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                    child: Image.asset("assets/images/Rectangle_logo.png")),
+                Container(
+                    padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          padding: EdgeInsets.all(0),
+                          onPressed: () {
+                            print("azeza");
+                          },
+                          icon: Icon(Icons.account_circle, size: 60),
+                        ),
+                        Text("Connexion")
+                      ],
+                    ))
+              ],
+            ),
           ),
         ),
         body: Container());
