@@ -110,16 +110,3 @@ Future<List> getfavoris(String idutilisateur) async {
   List rep_requete = response.data;
   return rep_requete;
 }
-
-
-// Future<List> getfavoris(String idutilisateur) async {
-//   final dio = Dio();
-//   final response =
-//       await dio.post('https://cubecesi.000webhostapp.com/index.php',
-//           data: FormData.fromMap({
-//             'fonction': 'getfavoris',
-//             'idutilisateur': idutilisateur,
-//           }));
-//   List rep_requete = response.data;
-//   return rep_requete;
-// }
