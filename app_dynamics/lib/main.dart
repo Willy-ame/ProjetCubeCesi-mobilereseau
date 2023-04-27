@@ -1,4 +1,9 @@
+import 'package:App_dynamics/vue/consultation.dart';
 import 'package:flutter/material.dart';
+import 'model/Widget_bouton.dart';
+import 'vue/authentification.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'vue/createressource.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,39 +37,183 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  // ignore: non_constant_identifier_names
+  List v_index = [];
+
+  void _PageLogin() async {
+    final a = await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => LoginPage()));
+    setState(() {
+      if (a != null) {
+        v_index = a;
+      }
+    });
+  }
+
+  void _PageCreerressource() async {
+    final a = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                CreatemessagePage(v_index[0]["Id_utilisateur"])));
+    // setState(() {
+    //   if (a != null) {
+    //     v_index = a;
+    //   }
+    // });
+  }
+
+  void _PageConsulationmessages() async {
+    final a = await Navigator.push(context,
+        MaterialPageRoute(builder: (context) => Consultationmessages(v_index)));
+    ;
+    // setState(() {
+    //   if (a != null) {
+    //     v_index = a;
+    //   }
+    // });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
+        // resizeToAvoidBottomInset: false,
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(120),
           child: AppBar(
+            // automaticallyImplyLeading: false,
             backgroundColor: const Color.fromARGB(255, 152, 158, 152),
             flexibleSpace: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                    padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                     child: Image.asset("assets/images/Rectangle_logo.png")),
                 Container(
-                    padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         IconButton(
-                          padding: EdgeInsets.all(0),
+                          padding: const EdgeInsets.all(0),
                           onPressed: () {
-                            print("azeza");
+                            if (v_index.isNotEmpty) {
+                              v_index = [];
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          super.widget));
+                            } else
+                              _PageLogin();
                           },
-                          icon: Icon(Icons.account_circle, size: 60),
+                          icon: v_index.isNotEmpty
+                              ? Text("Bonjour " + v_index[0]["Nom"])
+                              // ? Image.asset("assets/img/logo.png")
+                              : const Icon(Icons.account_circle, size: 60),
                         ),
-                        Text("Connexion")
+                        v_index.isNotEmpty
+                            ? Text("Déconnexion")
+                            : Text("Connexion"),
                       ],
                     ))
               ],
             ),
           ),
         ),
-        body: Container());
+        body: SingleChildScrollView(
+            child: Column(
+          children: [
+            SizedBox(
+                height: 300,
+                child: Stack(children: [
+                  Positioned.fill(
+                      child: Image.asset(
+                    opacity: const AlwaysStoppedAnimation(1),
+                    "assets/images/people.png",
+                    fit: BoxFit.cover,
+                  )),
+                  Container(
+                    color: const Color.fromARGB(90, 0, 0, 0),
+                  ),
+                  Center(
+                    child: Text("CE QUI NOUS UNIT",
+                        style: GoogleFonts.tomorrow(
+                          textStyle: const TextStyle(
+                              fontSize: 40,
+                              color: Color.fromARGB(255, 255, 255, 255)),
+                        )),
+                  )
+                ])),
+            Container(
+              color: const Color.fromARGB(180, 147, 147, 147),
+              height: 350, // largeur du container
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
+                    children: [
+                      CustomButton(
+                        text: "Consulter les ressources",
+                        onPressed: () {
+                          _PageConsulationmessages();
+                        },
+                        monicon: Icons.checklist,
+                        // monicon: Icons.send,
+                        // monicon: Icons.list,
+                      ),
+                      if (v_index.isNotEmpty &&
+                          v_index[0]["Id_utilisateur"] != "")
+                        CustomButton(
+                          text: "Catalogue des ressources",
+                          onPressed: () {},
+                          monicon: Icons.library_books,
+                        ),
+                    ],
+                  ),
+                  if (v_index.isNotEmpty && v_index[0]["Id_utilisateur"] != "")
+                    Row(
+                      children: [
+                        CustomButton(
+                          text: "Création et partage",
+                          onPressed: () {
+                            _PageCreerressource();
+                          },
+                          monicon: Icons.create,
+                        ),
+                        CustomButton(
+                          text: "Statistiques",
+                          onPressed: () {},
+                          monicon: Icons.analytics,
+                        )
+                      ],
+                    ),
+                ],
+              ),
+            ),
+            Container(
+              color: const Color.fromARGB(200, 222, 222, 222),
+              height: 150,
+              child: Row(children: [
+                Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Image.asset(
+                      "assets/images/msdls.png",
+                      width: 100,
+                      height: 100,
+                    )),
+                const Expanded(
+                    child: Text(
+                  "Copyright© 2020 - 2023. Tous droits réservés.",
+                  textAlign: TextAlign.center,
+                )),
+                const Expanded(
+                    child: Text(
+                        "Politique de confidentialité |  Gestions des cookies | Conditons générales d’utilisation",
+                        textAlign: TextAlign.left))
+              ]),
+            ),
+          ],
+        )));
   }
 }
