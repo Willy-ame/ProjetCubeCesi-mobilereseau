@@ -5,16 +5,6 @@ import 'vue/authentification.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'vue/createressource.dart';
 
-import 'package:dart_code_metrics/analyzer_plugin.dart';
-import 'package:dart_code_metrics/cli_runner.dart';
-import 'package:dart_code_metrics/config.dart';
-import 'package:dart_code_metrics/lint_analyzer.dart';
-import 'package:dart_code_metrics/reporters.dart';
-import 'package:dart_code_metrics/unnecessary_nullable_analyzer.dart';
-import 'package:dart_code_metrics/unused_code_analyzer.dart';
-import 'package:dart_code_metrics/unused_files_analyzer.dart';
-import 'package:dart_code_metrics/unused_l10n_analyzer.dart';
-
 void main() {
   runApp(const MyApp());
 }
